@@ -14,8 +14,7 @@ const seconds = document.querySelector('[data-seconds]');
 const timer = document.querySelector('.timer');
 timer.setAttribute('id', 'countdown');
 
-// timer.style.display = 'flex';
-// timer.style.marginLeft = '10px';
+timer.style.display = 'flex';
 
 
 const options = {
@@ -24,17 +23,29 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
+    let curtime = new Date()
+    let time = new Date(selectedDates[0]) - curtime;
+
+    if (time < 0) {
+    return  window.alert('Please choose a date in the future')
+    }
+
     if ( new Date(selectedDates)) {
       startBtn.removeAttribute("disabled");
     }
-    startBtn.addEventListener('click', () => {
-      const intervalId = setInterval(() => {
-        const curtime = new Date();
-        const time = new Date(selectedDates[0]) - curtime;
 
-        if (time < 0) {
-        return  window.alert('Please choose a date in the future')
-        }
+
+
+
+    startBtn.addEventListener('click', () => {
+
+      const intervalId = setInterval(() => {
+          const curtime = new Date();
+       const time = new Date(selectedDates[0]) - curtime;
+
+        // if (time < 0) {
+        // return  window.alert('Please choose a date in the future')
+        // }
 
 
 
