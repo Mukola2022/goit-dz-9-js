@@ -14,8 +14,6 @@ const seconds = document.querySelector('[data-seconds]');
 const timer = document.querySelector('.timer');
 timer.setAttribute('id', 'countdown');
 
-timer.style.display = 'flex';
-
 
 const options = {
   enableTime: true,
@@ -30,24 +28,21 @@ const options = {
     return  window.alert('Please choose a date in the future')
     }
 
+
+
     if ( new Date(selectedDates)) {
       startBtn.removeAttribute("disabled");
     }
 
-
-
-
     startBtn.addEventListener('click', () => {
 
       const intervalId = setInterval(() => {
-          const curtime = new Date();
-       const time = new Date(selectedDates[0]) - curtime;
-
-        // if (time < 0) {
-        // return  window.alert('Please choose a date in the future')
-        // }
-
-
+          let curtime = new Date();
+       let time = new Date(selectedDates[0]) - curtime;
+       if (!(time >= 0) ) {
+       clearInterval(intervalId);
+       location.reload();
+       }
 
         const timeComponent =  convertMs(time);
         console.log(timeComponent)
@@ -55,12 +50,10 @@ const options = {
         updateClockface(timeComponent);
 
       }, 1000);
+
     })
     console.log(selectedDates);
-
 },
-
-
 }
 
 
@@ -97,9 +90,6 @@ function updateClockface({ days, hours, minutes, seconds }) {
     document.querySelector('[data-seconds]').textContent = `${seconds}`
 
   }
-
-
-
 
 
 const fp = flatpickr(input, options);
